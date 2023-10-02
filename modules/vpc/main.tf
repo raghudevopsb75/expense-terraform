@@ -11,7 +11,7 @@ resource "aws_subnet" "public_subnets" {
   cidr_block        = var.public_subnets[count.index]
   availability_zone = var.azs[count.index]
   tags = {
-    Name = "public-subnet-${count.index+1}"
+    Name = "public-subnet-${count.index + 1}"
   }
 }
 
@@ -22,7 +22,7 @@ resource "aws_subnet" "private_subnets" {
   cidr_block        = var.private_subnets[count.index]
   availability_zone = var.azs[count.index]
   tags = {
-    Name = "private-subnet-${count.index+1}"
+    Name = "private-subnet-${count.index + 1}"
   }
 }
 
@@ -35,7 +35,7 @@ resource "aws_internet_gateway" "igw" {
 }
 
 resource "aws_eip" "ngw" {
-  domain   = "vpc"
+  domain = "vpc"
 }
 
 resource "aws_nat_gateway" "ngw" {
@@ -74,8 +74,13 @@ resource "aws_route_table" "private" {
   vpc_id = aws_vpc.main.id
 
   route {
-    cidr_block = "10.0.1.0/24"
+    cidr_block     = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.ngw.id
+  }
+
+  route {
+    cidr_block                = var.default_vpc_cidr
+    vpc_peering_connection_id = aws_vpc_peering_connection.peering.id
   }
 
   tags = {
