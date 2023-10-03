@@ -32,7 +32,7 @@ module "private-lb" {
 }
 
 module "frontend" {
-  source = "./modules/app"
+  source        = "./modules/app"
   app_port      = 80
   component     = "frontend"
   env           = var.env
@@ -43,7 +43,7 @@ module "frontend" {
 }
 
 module "backend" {
-  source = "./modules/app"
+  source        = "./modules/app"
   app_port      = 8080
   component     = "backend"
   env           = var.env
