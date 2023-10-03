@@ -11,6 +11,14 @@ resource "aws_security_group" "security_group" {
     cidr_blocks = [var.vpc_cidr]
   }
 
+  ingress {
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = var.bastion_node_cidr
+  }
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -28,7 +36,7 @@ resource "aws_launch_template" "template" {
   image_id               = data.aws_ami.ami.id
   instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.security_group.id]
-  user_data              = base64encode(templatefile("${path.module}/userdata.sh", {
+  user_data = base64encode(templatefile("${path.module}/userdata.sh", {
     role_name = var.component
   }))
 
