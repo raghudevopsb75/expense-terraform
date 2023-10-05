@@ -31,6 +31,7 @@ module "private-lb" {
   vpc_id            = module.vpc.vpc_id
   dns_name          = "backend-${var.env}.rdevopsb73.online"
   zone_id           = "Z09059901XRPHNYMGLMJ4"
+  tg_arn            = module.backend.tg_arn
 }
 
 #module "frontend" {
