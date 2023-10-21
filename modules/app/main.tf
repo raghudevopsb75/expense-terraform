@@ -94,8 +94,20 @@ resource "aws_launch_template" "template" {
   instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.security_group.id]
 
+
   iam_instance_profile {
     name = aws_iam_instance_profile.instance_profile.name
+  }
+
+  block_device_mappings {
+    device_name = "/dev/nvme0n1"
+
+    ebs {
+      volume_size           = 10
+      encrypted             = true
+      delete_on_termination = true
+      kms_key_id            = var.kms_key_id
+    }
   }
 
   user_data = base64encode(templatefile("${path.module}/userdata.sh", {
