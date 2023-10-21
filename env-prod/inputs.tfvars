@@ -14,3 +14,4 @@ max_size               = 10
 min_size               = 2
 instance_class         = "db.t3.medium"
 prometheus_cidr        = ["172.31.17.71/32"]
+kms_key_id             = "arn:aws:kms:us-east-1:739561048503:key/f0a71b80-90c3-4da1-a189-b4b95e9764e8"

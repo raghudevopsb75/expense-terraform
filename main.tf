@@ -11,31 +11,31 @@ module "vpc" {
   default_route_table_id = var.default_route_table_id
 }
 
-module "public-lb" {
-  source            = "./modules/alb"
-  alb_sg_allow_cidr = "0.0.0.0/0"
-  alb_type          = "public"
-  env               = var.env
-  internal          = false
-  subnets           = module.vpc.public_subnets
-  vpc_id            = module.vpc.vpc_id
-  dns_name          = "${var.env}.rdevopsb73.online"
-  zone_id           = "Z09059901XRPHNYMGLMJ4"
-  tg_arn            = module.frontend.tg_arn
-}
+#module "public-lb" {
+#  source            = "./modules/alb"
+#  alb_sg_allow_cidr = "0.0.0.0/0"
+#  alb_type          = "public"
+#  env               = var.env
+#  internal          = false
+#  subnets           = module.vpc.public_subnets
+#  vpc_id            = module.vpc.vpc_id
+#  dns_name          = "${var.env}.rdevopsb73.online"
+#  zone_id           = "Z09059901XRPHNYMGLMJ4"
+#  tg_arn            = module.frontend.tg_arn
+#}
 
-module "private-lb" {
-  source            = "./modules/alb"
-  alb_sg_allow_cidr = var.vpc_cidr
-  alb_type          = "private"
-  env               = var.env
-  internal          = true
-  subnets           = module.vpc.private_subnets
-  vpc_id            = module.vpc.vpc_id
-  dns_name          = "backend-${var.env}.rdevopsb73.online"
-  zone_id           = "Z09059901XRPHNYMGLMJ4"
-  tg_arn            = module.backend.tg_arn
-}
+#module "private-lb" {
+#  source            = "./modules/alb"
+#  alb_sg_allow_cidr = var.vpc_cidr
+#  alb_type          = "private"
+#  env               = var.env
+#  internal          = true
+#  subnets           = module.vpc.private_subnets
+#  vpc_id            = module.vpc.vpc_id
+#  dns_name          = "backend-${var.env}.rdevopsb73.online"
+#  zone_id           = "Z09059901XRPHNYMGLMJ4"
+#  tg_arn            = module.backend.tg_arn
+#}
 
 #module "frontend" {
 #  source            = "./modules/app"
@@ -71,14 +71,15 @@ module "private-lb" {
 #  prometheus_cidr   = var.prometheus_cidr
 #}
 
-#module "mysql" {
-#  source = "./modules/rds"
-#
-#  component      = "mysql"
-#  env            = var.env
-#  subnets        = module.vpc.private_subnets
-#  vpc_cidr       = var.vpc_cidr
-#  vpc_id         = module.vpc.vpc_id
-#  instance_class = var.instance_class
-#}
+module "mysql" {
+  source = "./modules/rds"
+
+  component      = "mysql"
+  env            = var.env
+  subnets        = module.vpc.private_subnets
+  vpc_cidr       = var.vpc_cidr
+  vpc_id         = module.vpc.vpc_id
+  instance_class = var.instance_class
+  kms_key_id     = var.kms_key_id
+}
 
