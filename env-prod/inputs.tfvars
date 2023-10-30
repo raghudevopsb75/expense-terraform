@@ -1,4 +1,4 @@
-env = "prod"
+env          = "prod"
 project_name = "expense"
 
 vpc_cidr               = "10.255.0.0/16"
@@ -16,3 +16,7 @@ min_size               = 2
 instance_class         = "db.t3.medium"
 prometheus_cidr        = ["172.31.17.71/32"]
 kms_key_id             = "arn:aws:kms:us-east-1:739561048503:key/e8e78cec-c8e2-4f7d-a525-554ed53015d2"
+
+## eks
+node_count     = 2
+instance_types = ["t3.large"]

@@ -1,4 +1,4 @@
-env = "dev"
+env          = "dev"
 project_name = "expense"
 
 vpc_cidr               = "10.0.0.0/16"
@@ -15,3 +15,7 @@ max_size               = 1
 min_size               = 1
 instance_class         = "db.t3.medium"
 prometheus_cidr        = ["172.31.17.71/32"]
+
+## eks
+node_count     = 2
+instance_types = ["t3.large"]

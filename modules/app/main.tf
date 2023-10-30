@@ -100,16 +100,16 @@ resource "aws_launch_template" "template" {
     name = aws_iam_instance_profile.instance_profile.name
   }
 
-#  block_device_mappings {
-#    device_name = "/dev/xvda"
-#
-#    ebs {
-#      volume_size           = 10
-#      encrypted             = true
-#      delete_on_termination = true
-#      kms_key_id            = var.kms_key_id
-#    }
-#  }
+  #  block_device_mappings {
+  #    device_name = "/dev/xvda"
+  #
+  #    ebs {
+  #      volume_size           = 10
+  #      encrypted             = true
+  #      delete_on_termination = true
+  #      kms_key_id            = var.kms_key_id
+  #    }
+  #  }
 
   user_data = base64encode(templatefile("${path.module}/userdata.sh", {
     role_name = var.component,
@@ -144,10 +144,10 @@ resource "aws_autoscaling_group" "asg" {
 }
 
 resource "aws_lb_target_group" "tg" {
-  name     = "${var.env}-${var.component}-tg"
-  port     = var.app_port
-  protocol = "HTTP"
-  vpc_id   = var.vpc_id
+  name                 = "${var.env}-${var.component}-tg"
+  port                 = var.app_port
+  protocol             = "HTTP"
+  vpc_id               = var.vpc_id
   deregistration_delay = 30
 
   health_check {

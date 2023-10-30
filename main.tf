@@ -89,6 +89,6 @@ module "eks" {
   source = "./modules/eks"
 
   project_name = var.project_name
-  env = var.env
-  subnet_ids = module.vpc.private_subnets
+  env          = var.env
+  subnet_ids   = module.vpc.private_subnets
 }
