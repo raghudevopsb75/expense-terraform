@@ -55,3 +55,20 @@ resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly" {
   role       = aws_iam_role.node.name
 }
 
+data "external" "thumbprint" {
+  program = ["bash", "${path.module}/thumbprint.sh", "${var.env}-${var.project_name}"]
+}
+
+//resource "aws_iam_openid_connect_provider" "eks" {
+//  url = aws_eks_cluster.main.identity[0].oidc[0].issuer
+//
+//  client_id_list = [
+//    split("/", aws_eks_cluster.main.identity[0].oidc[0].issuer)[4]
+//  ]
+//
+//  thumbprint_list = [data.external.thumbprint.result]
+//}
+
+output "result" {
+  value = data.external.thumbprint.result
+}

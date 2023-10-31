@@ -96,3 +96,6 @@ module "eks" {
 }
 
 
+output "result" {
+  value = module.eks
+}
