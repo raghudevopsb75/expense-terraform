@@ -100,5 +100,5 @@ module "eks" {
 //}
 
 output "id" {
-  value = module.eks.identity[0].oidc[0].issuer
+  value = module.eks.eks.identity[0].oidc[0].issuer
 }
