@@ -94,3 +94,7 @@ module "eks" {
   instance_types = var.instance_types
   node_count     = var.node_count
 }
+
+output "eks" {
+  value = module.eks
+}
